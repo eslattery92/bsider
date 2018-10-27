@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Most Popular Songs</title>
+
+
+
+
+</head>
+
+<style>
+
+    a {
+        color: PaleVioletRed;
+     }
+</style>
+
+
+<body>
+<center><font size="30" color="gray">Check The Songs You Enjoy</font></center>
+
+
+{% block content %}
+
+
+
+
+<form action="/submit_songs" method="POST" name="tops">
+    <!--{{ urls[0].values()[0] }}-->
+    <input type="checkbox" name="one" value="{{popular_songs[0]}}">{{popular_songs[0]}}
+    <p><a href=" {{ urls[0].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="two" value="{{popular_songs[1]}}">{{popular_songs[1]}}
+    <p><a href=" {{ urls[1].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="three" value="{{popular_songs[2]}}">{{popular_songs[2]}}
+    <p><a href=" {{ urls[2].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="four" value="{{popular_songs[3]}}">{{popular_songs[3]}}
+    <p><a href=" {{ urls[3].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="five" value="{{popular_songs[4]}}">{{popular_songs[4]}}
+    <p><a href=" {{ urls[4].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="six" value="{{popular_songs[5]}}">{{popular_songs[5]}}
+    <p><a href=" {{ urls[5].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="seven" value="{{popular_songs[6]}}">{{popular_songs[6]}}
+    <p><a href=" {{ urls[6].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="eight" value="{{popular_songs[7]}}">{{popular_songs[7]}}
+    <p><a href=" {{ urls[7].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="nine" value="{{popular_songs[8]}}">{{popular_songs[8]}}
+    <p><a href=" {{ urls[8].values()[0] }} ">Play</a></p>
+    <input type="checkbox" name="ten" value="{{popular_songs[0]}}">{{popular_songs[9]}}
+    <p><a href=" {{ urls[9].values()[0] }} ">Play</a></p>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <input type="submit" value="Submit">
+</form>
+
+
+
+<img src=" {{ image }} ">
+
+{% endblock content %}
+
+
+<br>
+
+
+
+
+
+
+</body>
+</html>
+

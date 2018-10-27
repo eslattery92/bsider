@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Recs</title>
+</head>
+<body>
+
+<center><font size="30" color="gray">Your Song Recommendations</font></center>
+
+{% block content %}
+
+
+
+<p>{% for new in new_songs %}</p>
+
+<p>{{ new[0] }}</p>
+{% set link = "open.spotify.com/track/" %}
+{% set l = link + new[1] %}
+<p><a href="{{ ''.join(['http://', l]) }}" target="_blank">Play</a></p>
+
+
+
+
+
+    {% endfor %}
+
+
+{% endblock content %}
+
+<p>Testing</p>
+
+</body>
+</html>
+
+
