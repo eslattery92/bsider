@@ -23,20 +23,9 @@ class TopSongs(FlaskForm):
 
 app.config['SECRET_KEY'] = 'RETRACTED'
 
-# scope = 'user-library-read'
-# spotify_client_id = 'f0c917761fd84635a832a99e0457334f'
-# spotify_client_secret = '8a2ce521da2e43398eec9b199bb646b2'
-# spotify_redirect_uri = 'http://127.0.0.1:5000/'
-# username = 'laladoodle'
-#
-# token = util.prompt_for_user_token(username, scope, spotify_client_id, spotify_client_secret, spotify_redirect_uri)
-# sp = spotipy.Spotify(auth=token)
-
-
 client_credentials_manager = SpotifyClientCredentials(client_id='RETRACTED', client_secret='RETRACTED')
 
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -72,8 +61,6 @@ def home():
         return render_template('topsongs.html', artist=artist, popular_songs=popular_songs, image=image, itertools=itertools, urls=urls, artist_name=artist_name)
 
     return render_template('/home.html')
-
-
 
 
 @app.route('/submit_songs', methods=['POST'])
