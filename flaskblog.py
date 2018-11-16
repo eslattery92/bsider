@@ -21,7 +21,7 @@ class TopSongs(FlaskForm):
     submit = SubmitField("Submit")
 
 
-app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280bae245'
+app.config['SECRET_KEY'] = 'RETRACTED'
 
 # scope = 'user-library-read'
 # spotify_client_id = 'f0c917761fd84635a832a99e0457334f'
@@ -33,7 +33,7 @@ app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280bae245'
 # sp = spotipy.Spotify(auth=token)
 
 
-client_credentials_manager = SpotifyClientCredentials(client_id='f0c917761fd84635a832a99e0457334f', client_secret='8a2ce521da2e43398eec9b199bb646b2')
+client_credentials_manager = SpotifyClientCredentials(client_id='RETRACTED', client_secret='RETRACTED')
 
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
@@ -209,22 +209,7 @@ def submitsongs():
             else:
                 pass
 
-
-
-
-
-
-
         return render_template('submitsongs.html', new_songs=new_songs, recommend_songs=recommend_songs)
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
