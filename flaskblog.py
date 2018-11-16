@@ -66,10 +66,10 @@ def home():
             popular_songs.append(name)
             urls.append(url)
 
+        artist_name = artist.values()[1]
 
 
-
-        return render_template('topsongs.html', artist=artist, popular_songs=popular_songs, image=image, itertools=itertools, urls=urls)
+        return render_template('topsongs.html', artist=artist, popular_songs=popular_songs, image=image, itertools=itertools, urls=urls, artist_name=artist_name)
 
     return render_template('/home.html')
 
@@ -191,7 +191,7 @@ def submitsongs():
 
         present_list = []
         for k in match_songs:
-            if k[2] < 0.75:
+            if k[2] < 0.50:
                 present_list.append((k[0], k[1], k[2], k[3]))
 
         ordered_songs = sorted(present_list, key=operator.itemgetter(2))
@@ -203,7 +203,7 @@ def submitsongs():
         new_songs = []
         for i in recommend_songs:
             if i[1] not in [x[0] for x in new_songs]:
-                new_songs.append((i[1], i[3]))
+                new_songs.append((i[1], i[3], i[0]))
 
 
             else:
@@ -213,7 +213,9 @@ def submitsongs():
 
 
 
-        return render_template('submitsongs.html', new_songs=new_songs)
+
+
+        return render_template('submitsongs.html', new_songs=new_songs, recommend_songs=recommend_songs)
 
 
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
+
+</head>
+
+    <style>
+    fieldset {
+    width: 50%;
+    height: 30px;
+    padding: 10 px 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    resize: both;
+    }
+
+
+p.heading {
+
+    font-size: 100px;
+    color: #A52A2A;
+    font-family: 'Monoton', cursive;
+    margin-top: 1px;
+    margin-bottom: 1px;
+
+}
+
+p.intro {
+
+    font-family: 'Alice', serif;
+    font-size: 28px;
+    margin-top: 5px;
+    color: 	#800000;
+    margin-bottom: 1px;
+
+}
+
+</style>
+
+
+
+
+
+
+<body>
+
+
+
+<center>
+    <p class="heading"> B-Sider</p>
+    <p class="intro">Enter The Name Of A Musical Artist</p>
+    <br>
+    <form method="POST" action="/top_songs">
+        <div class="form-group">
+        <input type="text" name="artist">
+    </div>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+
+</center>
+
+
+
+<!--<form method="POST">-->
+    <!--<textarea name="textbox"></textarea>-->
+    <!--<br>-->
+    <!--<button type="submit" name="submit">Submit</button>-->
+<!--</form></center>-->
+<!--</div>-->
+
+
+</center>
+</body>
+</html>

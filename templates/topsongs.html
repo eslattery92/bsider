@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Most Popular Songs</title>
+    <link href="https://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
 
 
 
@@ -11,14 +12,31 @@
 
 <style>
 
-    a {
-        color: PaleVioletRed;
+    p.explanation {
+        color: #CD853F;
+        font-family: 'Alice', serif;
+        font-size: 30px;
      }
+
+     p.first {
+        color: #8B0000;
+        margin-left: 3px;
+        font-family: 'Alice', serif;
+        display: inline-block;
+        font-size: 20px;
+         margin-bottom: 3px;
+         margin-top: 3px;
+      }
+
+html, body {margin: 0; height: 100%; overflow: hidden}
 </style>
 
 
 <body>
-<center><font size="30" color="gray">Check The Songs You Enjoy</font></center>
+
+<center><p class="explanation">Here are the current most popular songs by <b>{{ artist_name }}</b> on Spotify. <br>Check your favorites and we will recommend
+    some lesser known tracks for you.<br>Clicking the name of a song will open up a Spotify player in a new tab.</p>
+
 
 
 {% block content %}
@@ -26,30 +44,33 @@
 
 
 
+
+
 <form action="/submit_songs" method="POST" name="tops">
     <!--{{ urls[0].values()[0] }}-->
-    <input type="checkbox" name="one" value="{{popular_songs[0]}}">{{popular_songs[0]}}
-    <p><a href=" {{ urls[0].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="two" value="{{popular_songs[1]}}">{{popular_songs[1]}}
-    <p><a href=" {{ urls[1].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="three" value="{{popular_songs[2]}}">{{popular_songs[2]}}
-    <p><a href=" {{ urls[2].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="four" value="{{popular_songs[3]}}">{{popular_songs[3]}}
-    <p><a href=" {{ urls[3].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="five" value="{{popular_songs[4]}}">{{popular_songs[4]}}
-    <p><a href=" {{ urls[4].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="six" value="{{popular_songs[5]}}">{{popular_songs[5]}}
-    <p><a href=" {{ urls[5].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="seven" value="{{popular_songs[6]}}">{{popular_songs[6]}}
-    <p><a href=" {{ urls[6].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="eight" value="{{popular_songs[7]}}">{{popular_songs[7]}}
-    <p><a href=" {{ urls[7].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="nine" value="{{popular_songs[8]}}">{{popular_songs[8]}}
-    <p><a href=" {{ urls[8].values()[0] }} ">Play</a></p>
-    <input type="checkbox" name="ten" value="{{popular_songs[0]}}">{{popular_songs[9]}}
-    <p><a href=" {{ urls[9].values()[0] }} ">Play</a></p>
-    
+    <a href=" {{ urls[0].values()[0] }} " target="_blank"><input type="checkbox" name="one" value="{{popular_songs[0]}}"><p class="first">{{popular_songs[0]}}</p></a>
+    <br>
 
+    <a href=" {{ urls[1].values()[0] }} " target="_blank"><input type="checkbox" name="two" value="{{popular_songs[1]}}"><p class="first">{{popular_songs[1]}}</p></a>
+<br>
+    <a href=" {{ urls[2].values()[0] }} " target="_blank"><input type="checkbox" name="three" value="{{popular_songs[2]}}"><p class="first">{{popular_songs[2]}}</p></a>
+<br>
+    <a href=" {{ urls[3].values()[0] }} " target="_blank"><input type="checkbox" name="four" value="{{popular_songs[3]}}"><p class="first">{{popular_songs[3]}}</p></a>
+<br>
+    <a href=" {{ urls[4].values()[0] }} " target="_blank"><input type="checkbox" name="five" value="{{popular_songs[4]}}"><p class="first">{{popular_songs[4]}}</p></a>
+<br>
+    <a href=" {{ urls[5].values()[0] }} " target="_blank"><input type="checkbox" name="six" value="{{popular_songs[5]}}"><p class="first">{{popular_songs[5]}}</p></a>
+<br>
+    <a href=" {{ urls[6].values()[0] }} " target="_blank"><input type="checkbox" name="seven" value="{{popular_songs[6]}}"><p class="first">{{popular_songs[6]}}</p></a>
+<br>
+    <a href=" {{ urls[7].values()[0] }} " target="_blank"><input type="checkbox" name="eight" value="{{popular_songs[7]}}"><p class="first">{{popular_songs[7]}}</p></a>
+<br>
+    <a href=" {{ urls[8].values()[0] }} " target="_blank"><input type="checkbox" name="nine" value="{{popular_songs[8]}}"><p class="first">{{popular_songs[8]}}</p></a>
+<br>
+    <a href=" {{ urls[9].values()[0] }} " target="_blank"><input type="checkbox" name="ten" value="{{popular_songs[9]}}"><p class="first">{{popular_songs[9]}}</p></a>
+
+    
+<br>
 
 
 
@@ -65,11 +86,13 @@
 
 
     <input type="submit" value="Submit">
-</form>
+</form></center>
 
 
 
-<img src=" {{ image }} ">
+<!--<img src=" {{ image }} ">-->
+
+
 
 {% endblock content %}
 

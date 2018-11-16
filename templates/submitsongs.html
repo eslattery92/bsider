@@ -3,10 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Recs</title>
+    <link href="https://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
 </head>
+
+<style>
+
+    p.heading {
+        font-size: 40px;
+        color: #CD853F;
+        font-family: 'Alice', serif;
+    }
+
+    p.songs {
+        font-size: 20px;
+        color: #CD853F;
+        font-family: 'Alice', serif;
+        display: inline-block;
+    }
+
+     p.explanation {
+        color: #CD853F;
+        font-family: 'Alice', serif;
+        font-size: 30px;
+     }
+
+
+
+</style>
 <body>
 
-<center><font size="30" color="gray">Your Song Recommendations</font></center>
+
+
+<center><p class="heading">Our Recommendations</p></center>
+
+<center><p class="explanation">Here are the songs we recommend based on the favorite(s) you indicated on the last page.</p></center>
+
 
 {% block content %}
 
@@ -14,11 +45,14 @@
 
 <p>{% for new in new_songs %}</p>
 
-<p>{{ new[0] }}</p>
+
 {% set link = "open.spotify.com/track/" %}
 {% set l = link + new[1] %}
-<p><a href="{{ ''.join(['http://', l]) }}" target="_blank">Play</a></p>
+<!--<center><a href="{{ ''.join(['http://', l]) }}" target="_blank"><p class="songs"><b>{{ new[0] }}</b></p></a>because you like <b>{{ new[2] }}</b></center>-->
 
+<center><a href="{{ ''.join(['http://', l]) }}" target="_blank"><p class="songs"><b>{{ new[0] }}</b></p></a><br><p class="songs"> because you like {{ new[2] }}</p></center>
+
+<!--<center><p><a href="{{ ''.join(['http://', l]) }}" target="_blank">Play</a></p></center>-->
 
 
 
@@ -26,9 +60,14 @@
     {% endfor %}
 
 
+
+
+
+
+
 {% endblock content %}
 
-<p>Testing</p>
+
 
 </body>
 </html>
