@@ -49,7 +49,6 @@ def home():
 
 
 @app.route('/submit_songs', methods=['POST'])
-
 def submitsongs():
 
     # creates list containing user's favorite songs by the artist
@@ -103,7 +102,6 @@ def submitsongs():
                 try:
                     if '-' not in i['name'] and i['name'] not in all_songs.keys():
                         all_songs[i['name']] = [[str(i['id']), sp.track(str(i['id']))['popularity']]]
-
                     else:
                         all_songs[i['name']].append([str(i['id']), sp.track(str(i['id']))['popularity']])
                 except KeyError:
@@ -136,7 +134,6 @@ def submitsongs():
         # similiar ones
         match_songs = []
         for (a, b), (c, d) in product(most_popular_sort, liked_songs):
-
             total = abs(b[1] - d[1]) + abs(b[2] - d[2]) + abs(b[3] - d[3]) + abs(b[4] - d[4]) + abs(
                 b[5] - d[5]) + abs(
                 b[6] - d[6]) + abs(b[7] - d[7])
