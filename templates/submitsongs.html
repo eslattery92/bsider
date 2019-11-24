@@ -43,31 +43,20 @@
 
 
 
-<p>{% for new in new_songs %}</p>
+<p>{% for k, v in match_dict.iteritems() %}</p>
 
 
 {% set link = "open.spotify.com/track/" %}
-{% set l = link + new[1] %}
-<!--<center><a href="{{ ''.join(['http://', l]) }}" target="_blank"><p class="songs"><b>{{ new[0] }}</b></p></a>because you like <b>{{ new[2] }}</b></center>-->
-
-<center><a href="{{ ''.join(['http://', l]) }}" target="_blank"><p class="songs"><b>{{ new[0] }}</b></p></a><br><p class="songs"> because you like {{ new[2] }}</p></center>
-
-<!--<center><p><a href="{{ ''.join(['http://', l]) }}" target="_blank">Play</a></p></center>-->
+{% set l = link + v[1] %}
 
 
+<center><a href="{{ ''.join(['http://', l]) }}" target="_blank"><p class="songs"><b>{{ k }}</b></p></a><br><p class="songs"> because you like {{ v[0] }}</p></center>
 
 
     {% endfor %}
 
 
-
-
-
-
-
 {% endblock content %}
-
-
 
 </body>
 </html>
