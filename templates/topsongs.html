@@ -6,8 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Alice" rel="stylesheet">
 
 
-
-
+    
 </head>
 
 <style>
@@ -41,13 +40,9 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 {% block content %}
 
-
-
-
-
-
+    
 <form action="/submit_songs" method="POST" name="tops">
-    <!--{{ urls[0].values()[0] }}-->
+
     <a href=" {{ urls[0].values()[0] }} " target="_blank"><input type="checkbox" name="one" value="{{popular_songs[0]}}"><p class="first">{{popular_songs[0]}}</p></a>
     <br>
 
@@ -71,26 +66,10 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
     
 <br>
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     <input type="submit" value="Submit">
 </form></center>
-
-
-
-<!--<img src=" {{ image }} ">-->
 
 
 
@@ -98,11 +77,6 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 
 <br>
-
-
-
-
-
 
 </body>
 </html>
