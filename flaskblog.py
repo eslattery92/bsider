@@ -1,9 +1,11 @@
+import config
 import spotipy
-from flask_wtf import FlaskForm
 from flask import Flask, render_template, request
-from wtforms import StringField, SubmitField
+from flask_wtf import FlaskForm
 from itertools import product
 from spotipy.oauth2 import SpotifyClientCredentials
+from wtforms import StringField, SubmitField
+
 
 app = Flask(__name__)
 
@@ -13,16 +15,15 @@ class TopSongs(FlaskForm):
     submit = SubmitField("Submit")
 
 
-app.config['SECRET_KEY'] = 'RETRACTED'
+app.config['SECRET_KEY'] = config.secret_key
+client_credentials_manager = SpotifyClientCredentials(client_id=config.client_id, client_secret=config.client_secret)
 
-client_credentials_manager = SpotifyClientCredentials(client_id='RETRACTED',
-                                                      client_secret='RETRACTED')
 
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 
-# The application asks the user to enter the name of a musical artist, and then generates a list of the artist's
-# ten most popular songs on Spotify
+# User enters the name of a musical artist, and program generates a list of the artist's ten most popular songs
+# on Spotify
 @app.route('/', methods=["GET"])
 @app.route('/top_songs', methods=["POST"])
 def home():
@@ -34,15 +35,13 @@ def home():
         global id_of_artist
         id_of_artist = artist_search['artists']['items'][0]['id']
 
-        image = artist_search['artists']['items'][0]['images'][0]['url']
-
         results = sp.artist_top_tracks(str(id_of_artist))
 
         popular_songs, urls = [x['name'] for x in results['tracks']], [x['external_urls'] for x in results['tracks']]
 
         artist_name = artist_search['artists']['items'][0]['name']
 
-        return render_template('topsongs.html', artist=artist, popular_songs=popular_songs, image=image,
+        return render_template('topsongs.html', popular_songs=popular_songs,
                                urls=urls, artist_name=artist_name)
 
     return render_template('/home.html')
@@ -64,24 +63,25 @@ def submitsongs():
         nine = request.form.getlist("nine")
         ten = request.form.getlist("ten")
 
-        all_songs = one + two + three + four + five + six + seven + eight + nine + ten
+        liked_songs = one + two + three + four + five + six + seven + eight + nine + ten
 
-        liked_songs = [[song, [str(sp.search(q='track:' + song, type='track')['tracks']['items'][0]['id'])]] for song in
-                       all_songs]
+        liked_songs[:] = [[song, [str(sp.search(q='track:' + song, type='track')['tracks']['items'][0]['id'])]] for song
+                          in liked_songs]
 
         # information regarding musical elements of each song is added to each song in the list
 
         for a, b in liked_songs:
             features = sp.audio_features(b[0])
-            b.append(features[0]['acousticness'])
-            b.append(features[0]['danceability'])
-            b.append(features[0]['energy'])
-            b.append(features[0]['instrumentalness'])
-            b.append(features[0]['speechiness'])
-            b.append(features[0]['valence'])
-            b.append(features[0]['liveness'])
+            if None not in features:
+                b.append(features[0]['acousticness'])
+                b.append(features[0]['danceability'])
+                b.append(features[0]['energy'])
+                b.append(features[0]['instrumentalness'])
+                b.append(features[0]['speechiness'])
+                b.append(features[0]['valence'])
+                b.append(features[0]['liveness'])
 
-        # a list is created containing all albums by the artist; this is to find every song by them
+        # a list is created containing all albums by the artist
 
         results = sp.artist_albums(id_of_artist, album_type='album')
         albums = [album['id'] for album in results['items'] if 'Karaoke' not in album['name']]
@@ -93,7 +93,7 @@ def submitsongs():
                 if 'Karaoke' not in album['name']:
                     albums.append(album['id'])
 
-        # A dictionary is created containing all songs by the artist and their popularity number
+        # A dictionary is created containing all songs by the artist
 
         all_songs = {}
         for album in albums:
@@ -107,28 +107,27 @@ def submitsongs():
                 except KeyError:
                     pass
 
-        # It is common for a song to be on multiple albums. The application finds
+        # In some cases, a song can be found on multiple albums. The program finds
         # what the highest popularity ranking for each song is, and then creates new list with the
-        # least popular songs by the artist.
+        # less popular songs by the artist.
 
-        most_popular = {k: max(v, key=lambda x: x[1]) for k, v in all_songs.items()}
+        most_popular = {k: max(v, key=lambda x: x[1]) for k, v in all_songs.items() if v[0][1] > 0}
 
-        num_of_songs = len(most_popular) / 2
-        if num_of_songs >= 50:
-            num_of_songs = 50
+        num_of_songs = len(most_popular) - int(round(len(most_popular) * 0.25))
 
         most_popular_sort = sorted(most_popular.items(), key=lambda x: x[1][1])[:num_of_songs]
 
         for a, b in most_popular_sort:
             features = sp.audio_features(b[0])
-            b.append(features[0]['acousticness'])
-            b.append(features[0]['danceability'])
-            b.append(features[0]['energy'])
-            b.append(features[0]['instrumentalness'])
-            b.append(features[0]['speechiness'])
-            b.append(features[0]['valence'])
-            b.append(features[0]['liveness'])
-            del b[1]
+            if None not in features:
+                b.append(features[0]['acousticness'])
+                b.append(features[0]['danceability'])
+                b.append(features[0]['energy'])
+                b.append(features[0]['instrumentalness'])
+                b.append(features[0]['speechiness'])
+                b.append(features[0]['valence'])
+                b.append(features[0]['liveness'])
+                del b[1]
 
         # compares musical features of user's favorite songs with the artist's least favorite songs to find the most
         # similiar ones
@@ -138,11 +137,11 @@ def submitsongs():
                 b[5] - d[5]) + abs(
                 b[6] - d[6]) + abs(b[7] - d[7])
             if total < 0.50:
-                match_songs.append([c, str(a), total, b[0]])
+                match_songs.append([c, a, total, b[0]])
 
         match_dict = {}
         for item in sorted(match_songs, key=lambda x: x[2]):
-            if item[1] not in match_dict.keys() and len(match_dict) < 5:
+            if item[1] not in match_dict.keys() and len(match_dict) < 7:
                 match_dict[item[1]] = [item[0], item[3]]
 
         return render_template('submitsongs.html', match_dict=match_dict)
